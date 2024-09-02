@@ -20,4 +20,8 @@ public class CandidateService {
     public List<Candidate> findAll() {
         return candidateRepository.findAll();
     }
+
+    public Candidate findById(String id) {
+        return candidateRepository.findById(id).orElseThrow();
+    }
 }
