@@ -2,6 +2,7 @@ package infrastructure.resources;
 
 import api.CandidateApi;
 import api.dto.in.CreateCandidate;
+import api.dto.in.UpdateCandidate;
 import api.dto.out.Candidate;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
@@ -51,5 +52,20 @@ class CandidateResourceTest {
         verifyNoMoreInteractions(api);
 
         assertEquals(out, Arrays.stream(response).toList());
+    }
+
+    @Test
+    void update(){
+        var in = Instancio.create(UpdateCandidate.class);
+        var out = Instancio.create(Candidate.class);
+
+        when(api.update(out.id(), in)).thenReturn(out);
+
+        given().contentType(MediaType.APPLICATION_JSON).body(in)
+                .when().put("/" + out.id())
+                .then().statusCode(RestResponse.StatusCode.OK);
+
+        verify(api).update(out.id(), in);
+        verifyNoMoreInteractions(api);
     }
 }
