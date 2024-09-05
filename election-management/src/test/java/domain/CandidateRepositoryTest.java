@@ -23,7 +23,6 @@ public abstract class CandidateRepositoryTest {
         assertEquals(candidate, result.get());
     }
 
-    //FIXME for some reason, the database have data on first execution using quarkus dev
     @Test
     void findAll(){
         List<Candidate> candidates = Instancio.stream(Candidate.class).limit(2).toList();
